@@ -21,6 +21,7 @@ class GameUserResource extends Resource
 {
     protected static ?string $model = GameUser::class;
 
+    protected static ?string $breadcrumb = 'Benutzerverwaltung';
     protected static ?string $navigationLabel = 'Benutzerverwaltung';
     protected static ?string $navigationIcon = 'heroicon-o-users';
 
@@ -122,7 +123,10 @@ class GameUserResource extends Resource
     {
         return [
             RelationManagers\NameHistoriesRelationManager::class,
+            RelationManagers\BanRelationManager::class,
             RelationManagers\KicksRelationManager::class,
+            RelationManagers\MutesRelationManager::class,
+            RelationManagers\WarnsRelationManager::class
         ];
     }
 
@@ -131,7 +135,7 @@ class GameUserResource extends Resource
         return [
             'index' => Pages\ListGameUsers::route('/'),
             'view' => Pages\ViewGameUser::route('/{record}'),
-            'create' => Pages\CreateGameUser::route('/create'),
+//            'create' => Pages\CreateGameUser::route('/create'),
             'edit' => Pages\EditGameUser::route('/{record}/edit'),
         ];
     }

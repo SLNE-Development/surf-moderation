@@ -3,7 +3,6 @@
 namespace App\Filament\Resources\Game\GameUserResource\Pages;
 
 use App\Filament\Resources\Game\GameUserResource;
-use Filament\Actions;
 use Filament\Resources\Pages\ListRecords;
 
 class ListGameUsers extends ListRecords
@@ -13,7 +12,7 @@ class ListGameUsers extends ListRecords
     protected function getHeaderActions(): array
     {
         return [
-            Actions\CreateAction::make(),
+//            Actions\CreateAction::make(),
         ];
     }
 }

@@ -11,6 +11,9 @@ class PunishmentSeeder extends Seeder
      */
     public function run(): void
     {
+        $this->call(BanSeeder::class);
         $this->call(KickSeeder::class);
+        $this->call(WarnSeeder::class);
+        $this->call(MuteSeeder::class);
     }
 }

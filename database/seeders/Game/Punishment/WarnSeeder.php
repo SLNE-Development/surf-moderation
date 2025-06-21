@@ -3,10 +3,10 @@
 namespace Database\Seeders\Game\Punishment;
 
 use App\Models\Game\GameUser;
-use App\Models\Game\Punishment\Kick;
+use App\Models\Game\Punishment\Warn;
 use Illuminate\Database\Seeder;
 
-class KickSeeder extends Seeder
+class WarnSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -15,7 +15,7 @@ class KickSeeder extends Seeder
     {
         $firstUser = GameUser::firstOrFail();
 
-        Kick::factory(30)->create([
+        Warn::factory(30)->create([
             "punished_uuid" => $firstUser->uuid,
             "issuer_uuid" => "5c63e51b-82b1-4222-af0f-66a4c31e36ad"
         ]);

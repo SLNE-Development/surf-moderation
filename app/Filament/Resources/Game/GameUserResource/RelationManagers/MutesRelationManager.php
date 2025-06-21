@@ -11,10 +11,10 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Model;
 
-class KicksRelationManager extends RelationManager
+class MutesRelationManager extends RelationManager
 {
-    protected static ?string $title = "Kicks";
-    protected static string $relationship = 'kicks';
+    protected static ?string $title = "Mutes";
+    protected static string $relationship = 'mutes';
 
     public function isReadOnly(): bool
     {
@@ -68,7 +68,7 @@ class KicksRelationManager extends RelationManager
             ])
             ->headerActions([
                 Tables\Actions\CreateAction::make()
-                    ->modalHeading("Kick erstellen")
+                    ->modalHeading("Mute erstellen")
                     ->createAnother(false)
                     ->mutateFormDataUsing(function (array $data): array {
                         $data["punishment_id"] = PunishmentIdGenerator::generate();
@@ -78,7 +78,7 @@ class KicksRelationManager extends RelationManager
             ])
             ->actions([
                 Tables\Actions\ActionGroup::make([
-                    Tables\Actions\ViewAction::make()->url(fn(Model $record): string => route('filament.admin.resources.game.punishment.kicks.view', [
+                    Tables\Actions\ViewAction::make()->url(fn(Model $record): string => route('filament.admin.resources.game.punishment.mutes.view', [
                         'record' => $record,
                     ])),
                     Tables\Actions\EditAction::make(),

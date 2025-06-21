@@ -10,11 +10,12 @@ use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Carbon;
 
-class KicksRelationManager extends RelationManager
+class BanRelationManager extends RelationManager
 {
-    protected static ?string $title = "Kicks";
-    protected static string $relationship = 'kicks';
+    protected static ?string $title = "Bans";
+    protected static string $relationship = 'bans';
 
     public function isReadOnly(): bool
     {
@@ -58,6 +59,48 @@ class KicksRelationManager extends RelationManager
                     ->label("Ausgeführt durch")
                     ->searchable()
                     ->sortable(),
+                Tables\Columns\TextColumn::make("expiration")
+                    ->label("Ablauf")
+                    ->tooltip(function ($state) {
+                        $state = json_decode($state, true);
+                        $expiresAt = $state["expires_at"] ?? null;
+                        $expiresAt = $expiresAt ? Carbon::parse($expiresAt) : null;
+
+                        return $expiresAt?->format(Table::$defaultDateTimeDisplayFormat);
+
+                    })
+                    ->formatStateUsing(function ($state) {
+                        $state = json_decode($state, true);
+
+                        return $state['human_readable'] ?? 'Unbekannt';
+                    })
+                    ->badge(function ($state) {
+                        $state = json_decode($state, true);
+                        $permanent = $state["permanent"];
+                        $expired = $state["expired"] ?? false;
+                        $humanReadable = $state['human_readable'] ?? 'Unbekannt';
+
+                        if ($permanent || $expired) {
+                            return $humanReadable;
+                        }
+
+                        return null;
+                    })
+                    ->color(function (string $state): string {
+                        $state = json_decode($state, true);
+                        $expired = $state['expired'] ?? false;
+                        $permanent = $state["permanent"] ?? false;
+
+                        if ($permanent) {
+                            return 'success';
+                        }
+
+                        return $expired ? 'danger' : 'gray';
+                    })
+                    ->sortable(),
+                Tables\Columns\IconColumn::make("security_ban")
+                    ->label("Security Ban")
+                    ->boolean(),
                 Tables\Columns\TextColumn::make("created_at")
                     ->label("Erstellt am")
                     ->sortable()
@@ -68,7 +111,7 @@ class KicksRelationManager extends RelationManager
             ])
             ->headerActions([
                 Tables\Actions\CreateAction::make()
-                    ->modalHeading("Kick erstellen")
+                    ->modalHeading("Ban erstellen")
                     ->createAnother(false)
                     ->mutateFormDataUsing(function (array $data): array {
                         $data["punishment_id"] = PunishmentIdGenerator::generate();
@@ -78,7 +121,7 @@ class KicksRelationManager extends RelationManager
             ])
             ->actions([
                 Tables\Actions\ActionGroup::make([
-                    Tables\Actions\ViewAction::make()->url(fn(Model $record): string => route('filament.admin.resources.game.punishment.kicks.view', [
+                    Tables\Actions\ViewAction::make()->url(fn(Model $record): string => route('filament.admin.resources.game.punishment.bans.view', [
                         'record' => $record,
                     ])),
                     Tables\Actions\EditAction::make(),

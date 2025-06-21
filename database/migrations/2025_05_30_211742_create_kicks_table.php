@@ -13,7 +13,7 @@ return new class extends Migration {
         Schema::create('kicks', function (Blueprint $table) {
             $table->id();
             $table->char("punishment_id", 8)->unique();
-            $table->char("uuid", 36)->index();
+            $table->char("punished_uuid", 36)->index();
             $table->longText("reason")->nullable();
             $table->char("issuer_uuid", 36)->nullable();
             $table->timestamps();

@@ -17,7 +17,7 @@ class Kick extends Model
 
     public function gameUser()
     {
-        return $this->belongsTo(GameUser::class, 'uuid', 'uuid');
+        return $this->belongsTo(GameUser::class, 'punished_uuid', 'uuid');
     }
 
     public function issuedBy()

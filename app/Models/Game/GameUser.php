@@ -51,21 +51,21 @@ class GameUser extends Model
 
     public function bans()
     {
-        return $this->hasMany(Ban::class, "uuid", "uuid");
+        return $this->hasMany(Ban::class, "punished_uuid", "uuid");
     }
 
     public function kicks()
     {
-        return $this->hasMany(Kick::class, "uuid", "uuid");
+        return $this->hasMany(Kick::class, "punished_uuid", "uuid");
     }
 
     public function mutes()
     {
-        return $this->hasMany(Mute::class, "uuid", "uuid");
+        return $this->hasMany(Mute::class, "punished_uuid", "uuid");
     }
 
     public function warns()
     {
-        return $this->hasMany(Warn::class, "uuid", "uuid");
+        return $this->hasMany(Warn::class, "punished_uuid", "uuid");
     }
 }
