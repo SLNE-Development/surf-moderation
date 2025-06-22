@@ -43,39 +43,40 @@ class GameUserResource extends Resource
 
     public static function infolist(Infolist $infolist): Infolist
     {
-        return $infolist
-            ->schema([
-                Grid::make()
-                    ->columns(12)
-                    ->schema([
-                        Section::make('Informationen')
-                            ->description("Allgemeine Informationen über den Benutzer")
-                            ->columns(2)
-                            ->schema([
-                                TextEntry::make('uuid')->label('UUID'),
-                                TextEntry::make('last_name')->label('Benutzername'),
+        $schema = [
+            Grid::make()
+                ->columns(12)
+                ->schema([
+                    Section::make('Informationen')
+                        ->description("Allgemeine Informationen über den Benutzer")
+                        ->columns(2)
+                        ->schema([
+                            TextEntry::make('uuid')->label('UUID'),
+                            TextEntry::make('last_name')->label('Benutzername'),
 
-                                IconEntry::make("has_freebuild_whitelist")
-                                    ->label("Freebuild Whitelist")
-                                    ->icon(fn(GameUser $record): string => $record->has_freebuild_whitelist ? 'far-circle-check' : 'far-circle-xmark')
-                                    ->color(fn(GameUser $record): string => $record->has_freebuild_whitelist ? 'success' : 'danger')
-                            ])
-                            ->columnSpan([
-                                'default' => 12,
-                                'lg' => 8,
-                            ]),
-                        Section::make('Statistiken')
-                            ->columns(1)
-                            ->schema([
-                                TextEntry::make('created_at')->label('Erstellt am')->dateTime(),
-                                TextEntry::make('updated_at')->label('Aktualisiert am')->dateTime(),
-                            ])
-                            ->columnSpan([
-                                'default' => 12,
-                                'lg' => 4,
-                            ]),
-                    ]),
-            ]);
+                            IconEntry::make("has_freebuild_whitelist")
+                                ->label("Freebuild Whitelist")
+                                ->icon(fn(GameUser $record): string => $record->has_freebuild_whitelist ? 'far-circle-check' : 'far-circle-xmark')
+                                ->color(fn(GameUser $record): string => $record->has_freebuild_whitelist ? 'success' : 'danger')
+                        ])
+                        ->columnSpan([
+                            'default' => 12,
+                            'lg' => 8,
+                        ]),
+                    Section::make('Statistiken')
+                        ->columns(1)
+                        ->schema([
+                            TextEntry::make('created_at')->label('Erstellt am')->dateTime(),
+                            TextEntry::make('updated_at')->label('Aktualisiert am')->dateTime(),
+                        ])
+                        ->columnSpan([
+                            'default' => 12,
+                            'lg' => 4,
+                        ]),
+                ]),
+        ];
+
+        return $infolist->schema($schema);
     }
 
     public static function form(Form $form): Form
