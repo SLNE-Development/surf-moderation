@@ -4,6 +4,7 @@ namespace App\Filament\Resources\Team;
 
 use App\Filament\Resources\Team\TeamMemberResource\Pages;
 use App\Filament\Resources\Team\TeamMemberResource\RelationManagers;
+use App\Filament\Resources\Team\TeamMemberResource\Widgets\Team\WeeklyFeedbackWidget;
 use App\Models\Team\TeamMember;
 use App\Models\Team\TeamMemberRole;
 use Filament\Forms;
@@ -203,6 +204,13 @@ class TeamMemberResource extends Resource
             RelationManagers\ContactPeopleRelationManager::class,
             RelationManagers\NotesRelationManager::class,
             RelationManagers\FeedbackRelationManager::class,
+        ];
+    }
+
+    public static function getWidgets(): array
+    {
+        return [
+            WeeklyFeedbackWidget::class
         ];
     }
 

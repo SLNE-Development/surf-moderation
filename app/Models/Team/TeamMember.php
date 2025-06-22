@@ -4,6 +4,7 @@ namespace App\Models\Team;
 
 use App\Models\Team\Feedback\TeamMemberFeedback;
 use App\Models\Team\Utils\TeamMemberContactPerson;
+use App\Models\Ticket\Ticket;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
@@ -70,5 +71,12 @@ class TeamMember extends Model
     public function contactPerson()
     {
         return $this->hasOne(TeamMemberContactPerson::class, "contact_person_id");
+    }
+
+    public function closedTickets()
+    {
+        return $this->hasMany(Ticket::class, "closed_by_id", "discord_id")
+            ->whereNotNull("closed_at")
+            ->orderBy("closed_at", "desc");
     }
 }

@@ -18,4 +18,13 @@ class ViewTeamMember extends ViewRecord
             EditAction::make()
         ];
     }
+
+    protected function getFooterWidgets(): array
+    {
+        return [
+            TeamMemberResource\Widgets\Team\WeeklyFeedbackWidget::make([
+                "teamMember" => $this->getRecord()
+            ])
+        ];
+    }
 }
