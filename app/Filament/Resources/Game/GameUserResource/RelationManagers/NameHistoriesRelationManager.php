@@ -12,8 +12,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class NameHistoriesRelationManager extends RelationManager
 {
-    protected static ?string $title = "Benutzernamen Verlauf";
     protected static string $relationship = 'nameHistories';
+
+    protected static ?string $title = "Benutzernamen";
+    protected static ?string $label = "Benutzername";
+    protected static ?string $pluralLabel = "Benutzernamen";
 
     public function isReadOnly(): bool
     {

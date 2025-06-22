@@ -14,8 +14,11 @@ use Illuminate\Support\Carbon;
 
 class BanRelationManager extends RelationManager
 {
-    protected static ?string $title = "Bans";
     protected static string $relationship = 'bans';
+
+    protected static ?string $title = "Bans";
+    protected static ?string $label = "Ban";
+    protected static ?string $pluralLabel = "Bans";
 
     public function isReadOnly(): bool
     {

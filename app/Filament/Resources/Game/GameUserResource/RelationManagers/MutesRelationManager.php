@@ -13,8 +13,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class MutesRelationManager extends RelationManager
 {
-    protected static ?string $title = "Mutes";
     protected static string $relationship = 'mutes';
+
+    protected static ?string $title = "Mutes";
+    protected static ?string $label = "Mute";
+    protected static ?string $pluralLabel = "Mutes";
 
     public function isReadOnly(): bool
     {

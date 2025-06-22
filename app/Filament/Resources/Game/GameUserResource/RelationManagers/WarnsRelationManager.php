@@ -13,8 +13,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class WarnsRelationManager extends RelationManager
 {
-    protected static ?string $title = "Verwarnungen";
     protected static string $relationship = 'warns';
+
+    protected static ?string $title = "Verwarnungen";
+    protected static ?string $label = "Verwarnung";
+    protected static ?string $pluralLabel = "Verwarnungen";
 
     public function isReadOnly(): bool
     {
