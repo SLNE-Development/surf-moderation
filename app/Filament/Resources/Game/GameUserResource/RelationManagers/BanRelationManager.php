@@ -89,7 +89,7 @@ class BanRelationManager extends RelationManager
 
                         return null;
                     })
-                    ->color(function (string $state): string {
+                    ->color(function (string $state) {
                         $state = json_decode($state, true);
                         $expired = $state['expired'] ?? false;
                         $permanent = $state["permanent"] ?? false;
@@ -98,7 +98,7 @@ class BanRelationManager extends RelationManager
                             return 'success';
                         }
 
-                        return $expired ? 'danger' : 'gray';
+                        return $expired ? 'danger' : null;
                     })
                     ->sortable(),
                 Tables\Columns\IconColumn::make("security_ban")

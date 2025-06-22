@@ -10,6 +10,7 @@ use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Carbon;
 
 class MutesRelationManager extends RelationManager
 {
@@ -60,6 +61,45 @@ class MutesRelationManager extends RelationManager
                 Tables\Columns\TextColumn::make("issuedBy.username_with_fallback")
                     ->label("Ausgeführt durch")
                     ->searchable()
+                    ->sortable(),
+                Tables\Columns\TextColumn::make("expiration")
+                    ->label("Ablauf")
+                    ->tooltip(function ($state) {
+                        $state = json_decode($state, true);
+                        $expiresAt = $state["expires_at"] ?? null;
+                        $expiresAt = $expiresAt ? Carbon::parse($expiresAt) : null;
+
+                        return $expiresAt?->format(Table::$defaultDateTimeDisplayFormat);
+
+                    })
+                    ->formatStateUsing(function ($state) {
+                        $state = json_decode($state, true);
+
+                        return $state['human_readable'] ?? 'Unbekannt';
+                    })
+                    ->badge(function ($state) {
+                        $state = json_decode($state, true);
+                        $permanent = $state["permanent"];
+                        $expired = $state["expired"] ?? false;
+                        $humanReadable = $state['human_readable'] ?? 'Unbekannt';
+
+                        if ($permanent || $expired) {
+                            return $humanReadable;
+                        }
+
+                        return null;
+                    })
+                    ->color(function (string $state) {
+                        $state = json_decode($state, true);
+                        $expired = $state['expired'] ?? false;
+                        $permanent = $state["permanent"] ?? false;
+
+                        if ($permanent) {
+                            return 'success';
+                        }
+
+                        return $expired ? 'danger' : null;
+                    })
                     ->sortable(),
                 Tables\Columns\TextColumn::make("created_at")
                     ->label("Erstellt am")
