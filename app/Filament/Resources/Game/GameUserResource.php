@@ -139,7 +139,8 @@ class GameUserResource extends Resource
             RelationManagers\KicksRelationManager::class,
             RelationManagers\MutesRelationManager::class,
             RelationManagers\WarnsRelationManager::class,
-            RelationManagers\WhitelistsRelationManager::class
+            RelationManagers\WhitelistsRelationManager::class,
+            RelationManagers\ReceivedTransactionsRelationManager::class,
         ];
     }
 

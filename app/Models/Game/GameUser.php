@@ -6,6 +6,7 @@ use App\Models\Game\Punishment\Ban;
 use App\Models\Game\Punishment\Kick;
 use App\Models\Game\Punishment\Mute;
 use App\Models\Game\Punishment\Warn;
+use App\Models\Game\Transaction\Transaction;
 use App\Models\Game\Utils\SocialConnection;
 use App\Models\Game\Utils\Whitelist;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -84,5 +85,15 @@ class GameUser extends Model
     public function socialConnection()
     {
         return $this->hasOne(SocialConnection::class, 'game_user_id', 'id');
+    }
+
+    public function receivedTransactions()
+    {
+        return $this->hasMany(Transaction::class, 'receiver_id', 'id');
+    }
+
+    public function sentTransactions()
+    {
+        return $this->hasMany(Transaction::class, 'sender_id', 'id');
     }
 }
