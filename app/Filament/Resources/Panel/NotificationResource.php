@@ -21,11 +21,14 @@ class NotificationResource extends Resource
 {
     protected static ?string $model = DatabaseNotification::class;
 
-    protected static ?string $breadcrumb = 'Benachrichtigungen';
     protected static ?string $navigationGroup = 'Panel';
     protected static ?string $navigationBadgeTooltip = 'Anzahl ungelesener Benachrichtigungen';
     protected static ?string $navigationLabel = 'Benachrichtigungen';
-    protected static ?string $navigationIcon = 'heroicon-o-bell';
+    protected static ?string $navigationIcon = 'fas-bell';
+    protected static ?int $navigationSort = 100;
+
+    protected static ?string $label = 'Benachrichtigung';
+    protected static ?string $pluralLabel = 'Benachrichtigungen';
 
     public static function getRecordTitle(?Model $record): string|Htmlable|null
     {
@@ -104,7 +107,6 @@ class NotificationResource extends Resource
                     ->label("Titel")
                     ->searchable()
                     ->formatStateUsing(function ($state) {
-                        dd($state);
                         $data = json_decode($state, true) ?? [];
 
                         return $data->title ?? 'Unbekannt';

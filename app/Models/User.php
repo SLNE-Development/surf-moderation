@@ -3,6 +3,8 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Models\Team\TeamMember;
+use App\Models\Team\TeamMemberNote;
 use Filament\Models\Contracts\FilamentUser;
 use Filament\Panel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -52,4 +54,15 @@ class User extends Authenticatable implements FilamentUser
     {
         return str_ends_with($this->email, "@slne.dev") && $this->hasVerifiedEmail();
     }
+
+    public function teamMembers()
+    {
+        return $this->hasOne(TeamMember::class, 'user_id');
+    }
+
+    public function writtenTeamMemberNotes()
+    {
+        return $this->hasMany(TeamMemberNote::class, 'author_id');
+    }
+
 }

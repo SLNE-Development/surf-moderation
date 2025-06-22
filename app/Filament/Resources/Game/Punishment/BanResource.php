@@ -18,12 +18,7 @@ class BanResource extends Resource
 
     protected static ?string $navigationGroup = "Punishments";
     protected static ?string $navigationLabel = 'Bans';
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
-
-    public static function canEdit(Model $record): bool
-    {
-        return false;
-    }
+    protected static ?string $navigationIcon = 'fas-hammer';
 
     public static function getGlobalSearchResultTitle(Model $record): string|Htmlable
     {
@@ -38,6 +33,11 @@ class BanResource extends Resource
     public static function getGlobalSearchResultUrl(Model $record): string
     {
         return static::getUrl('view', ['record' => $record]);
+    }
+
+    public static function canEdit(Model $record): bool
+    {
+        return false;
     }
 
     public static function form(Form $form): Form

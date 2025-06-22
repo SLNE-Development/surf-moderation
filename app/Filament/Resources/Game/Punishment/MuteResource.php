@@ -18,7 +18,7 @@ class MuteResource extends Resource
 
     protected static ?string $navigationGroup = "Punishments";
     protected static ?string $navigationLabel = 'Mutes';
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'fas-volume-xmark';
 
     public static function canEdit(Model $record): bool
     {

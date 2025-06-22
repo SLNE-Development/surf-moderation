@@ -30,7 +30,7 @@ class EditGameUser extends EditRecord
                     ->markAsRead(),
             ])
             ->success()
-            ->icon('heroicon-o-check-circle')
+            ->icon('fas-check')
             ->sendToDatabase(auth()->user(), true);
     }
 }

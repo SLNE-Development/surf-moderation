@@ -18,7 +18,7 @@ class WarnResource extends Resource
 
     protected static ?string $navigationGroup = "Punishments";
     protected static ?string $navigationLabel = 'Verwarnungen';
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'fas-triangle-exclamation';
 
     protected static ?string $breadcrumb = 'Verwarnungen';
 

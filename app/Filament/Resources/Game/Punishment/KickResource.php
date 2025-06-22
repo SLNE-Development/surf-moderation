@@ -18,7 +18,7 @@ class KickResource extends Resource
 
     protected static ?string $navigationGroup = "Punishments";
     protected static ?string $navigationLabel = 'Kicks';
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'fas-shoe-prints';
 
     public static function canEdit(Model $record): bool
     {

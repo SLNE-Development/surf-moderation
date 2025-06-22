@@ -23,7 +23,7 @@ class GameUserResource extends Resource
 
     protected static ?string $breadcrumb = 'Benutzerverwaltung';
     protected static ?string $navigationLabel = 'Benutzerverwaltung';
-    protected static ?string $navigationIcon = 'heroicon-o-users';
+    protected static ?string $navigationIcon = 'fas-people-group';
 
     public static function getGlobalSearchResultTitle(Model $record): string|Htmlable
     {
