@@ -8,6 +8,7 @@ use App\Models\Game\GameUser;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Infolists\Components\Grid;
+use Filament\Infolists\Components\IconEntry;
 use Filament\Infolists\Components\Section;
 use Filament\Infolists\Components\TextEntry;
 use Filament\Infolists\Infolist;
@@ -51,8 +52,13 @@ class GameUserResource extends Resource
                             ->description("Allgemeine Informationen über den Benutzer")
                             ->columns(2)
                             ->schema([
-                                TextEntry::make('uuid')->label('UUID')->columnSpanFull(),
-                                TextEntry::make('last_name')->label('Benutzername')->columnSpanFull(),
+                                TextEntry::make('uuid')->label('UUID'),
+                                TextEntry::make('last_name')->label('Benutzername'),
+
+                                IconEntry::make("has_freebuild_whitelist")
+                                    ->label("Freebuild Whitelist")
+                                    ->icon(fn(GameUser $record): string => $record->has_freebuild_whitelist ? 'far-circle-check' : 'far-circle-xmark')
+                                    ->color(fn(GameUser $record): string => $record->has_freebuild_whitelist ? 'success' : 'danger')
                             ])
                             ->columnSpan([
                                 'default' => 12,
@@ -126,7 +132,8 @@ class GameUserResource extends Resource
             RelationManagers\BanRelationManager::class,
             RelationManagers\KicksRelationManager::class,
             RelationManagers\MutesRelationManager::class,
-            RelationManagers\WarnsRelationManager::class
+            RelationManagers\WarnsRelationManager::class,
+            RelationManagers\WhitelistsRelationManager::class
         ];
     }
 

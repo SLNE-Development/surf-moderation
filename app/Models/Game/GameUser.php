@@ -6,6 +6,7 @@ use App\Models\Game\Punishment\Ban;
 use App\Models\Game\Punishment\Kick;
 use App\Models\Game\Punishment\Mute;
 use App\Models\Game\Punishment\Warn;
+use App\Models\Game\Utils\Whitelist;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -17,6 +18,11 @@ class GameUser extends Model
     public function getUsernameWithFallbackAttribute()
     {
         return $this->last_name ?: $this->uuid;
+    }
+
+    public function getHasFreebuildWhitelistAttribute()
+    {
+        return $this->whitelists()->where('server', 'freebuild')->exists();
     }
 
     public function getRouteKeyName()
@@ -67,5 +73,10 @@ class GameUser extends Model
     public function warns()
     {
         return $this->hasMany(Warn::class, "punished_uuid", "uuid");
+    }
+
+    public function whitelists()
+    {
+        return $this->hasMany(Whitelist::class, 'game_user_id');
     }
 }
