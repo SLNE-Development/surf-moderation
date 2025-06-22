@@ -200,8 +200,9 @@ class TeamMemberResource extends Resource
     {
         return [
             RelationManagers\RolesRelationManager::class,
+            RelationManagers\ContactPeopleRelationManager::class,
             RelationManagers\NotesRelationManager::class,
-            RelationManagers\FeedbackRelationManager::class
+            RelationManagers\FeedbackRelationManager::class,
         ];
     }
 

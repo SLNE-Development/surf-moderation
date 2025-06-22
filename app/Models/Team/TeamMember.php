@@ -3,6 +3,7 @@
 namespace App\Models\Team;
 
 use App\Models\Team\Feedback\TeamMemberFeedback;
+use App\Models\Team\Utils\TeamMemberContactPerson;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
@@ -59,5 +60,15 @@ class TeamMember extends Model
     public function feedback()
     {
         return $this->hasMany(TeamMemberFeedback::class, "team_member_id");
+    }
+
+    public function contactPeople()
+    {
+        return $this->hasMany(TeamMemberContactPerson::class, "team_member_id");
+    }
+
+    public function contactPerson()
+    {
+        return $this->hasOne(TeamMemberContactPerson::class, "contact_person_id");
     }
 }
