@@ -17,7 +17,7 @@ class FeedbackRelationManager extends RelationManager
     protected static ?string $title = 'Feedback';
     protected static ?string $label = 'Feedback';
     protected static ?string $pluralLabel = 'Feedbacks';
-    
+
     public function isReadOnly(): bool
     {
         return false;
@@ -37,9 +37,9 @@ class FeedbackRelationManager extends RelationManager
                     ->seconds(false)
                     ->columnSpanFull(),
                 Forms\Components\Toggle::make("should_notify_supervisors")
-                    ->label("Vorgesetzte benachrichtigen")
+                    ->label("Ansprechpartner benachrichtigen")
                     ->default(true)
-                    ->helperText('Benachrichtigt die Vorgesetzten des Teammitglieds, wenn das Feedback abgeschlossen wird.')
+                    ->helperText('Benachrichtigt die Ansprechpartner des Teammitglieds, wenn das Feedback abgeschlossen wird.')
                     ->columnSpanFull(),
             ]);
     }

@@ -32,7 +32,7 @@ class ViewTeamMemberFeedback extends ViewRecord
                     ->color(fn($state) => $state ? 'danger' : 'success')
                     ->boolean(),
                 IconEntry::make("should_notify_supervisors")
-                    ->label("Vorgesetzte benachrichtigen")
+                    ->label("Ansprechpartner benachrichtigen")
                     ->color(fn($state) => $state ? 'success' : 'danger')
                     ->boolean(),
             ]),
@@ -71,8 +71,8 @@ class ViewTeamMemberFeedback extends ViewRecord
                         ->description("Allgemeine Informationen über das Feedback")
                         ->schema([
                             Toggle::make("should_notify_supervisors")
-                                ->label("Vorgesetzte benachrichtigen")
-                                ->helperText("Benachrichtige die Vorgesetzten des Teammitglieds über dieses Feedback.")
+                                ->label("Ansprechpartner benachrichtigen")
+                                ->helperText("Benachrichtige die Ansprechpartner des Teammitglieds über dieses Feedback.")
                                 ->columnSpanFull()
                                 ->default(true),
                             DateTimePicker::make("closed_at")
