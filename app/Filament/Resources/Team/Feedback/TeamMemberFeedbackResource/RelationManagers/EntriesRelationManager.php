@@ -4,9 +4,11 @@ namespace App\Filament\Resources\Team\Feedback\TeamMemberFeedbackResource\Relati
 
 use Filament\Forms;
 use Filament\Forms\Form;
+use Filament\Resources\Pages\ViewRecord;
 use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Tables;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Model;
 
 class EntriesRelationManager extends RelationManager
 {
@@ -15,6 +17,16 @@ class EntriesRelationManager extends RelationManager
     protected static ?string $title = 'Feedback Einträge';
     protected static ?string $label = 'Feedback Eintrag';
     protected static ?string $pluralLabel = 'Feedback Einträge';
+
+    public function isReadOnly(): bool
+    {
+        return false;
+    }
+
+    public static function canViewForRecord(Model $ownerRecord, string $pageClass): bool
+    {
+        return is_subclass_of($pageClass, ViewRecord::class);
+    }
 
     protected function canCreate(): bool
     {

@@ -4,17 +4,29 @@ namespace App\Filament\Resources\Team\TeamMemberResource\RelationManagers;
 
 use Filament\Forms;
 use Filament\Forms\Form;
+use Filament\Resources\Pages\ViewRecord;
 use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Tables;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Model;
 
 class RolesRelationManager extends RelationManager
 {
     protected static string $relationship = 'roles';
-    
+
     protected static ?string $title = 'Rollen';
     protected static ?string $label = 'Rolle';
     protected static ?string $pluralLabel = 'Rollen';
+
+    public function isReadOnly(): bool
+    {
+        return false;
+    }
+
+    public static function canViewForRecord(Model $ownerRecord, string $pageClass): bool
+    {
+        return is_subclass_of($pageClass, ViewRecord::class);
+    }
 
     public function form(Form $form): Form
     {
