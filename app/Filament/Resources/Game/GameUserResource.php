@@ -22,8 +22,13 @@ class GameUserResource extends Resource
 {
     protected static ?string $model = GameUser::class;
 
-    protected static ?string $breadcrumb = 'Benutzerverwaltung';
-    protected static ?string $navigationLabel = 'Benutzerverwaltung';
+    protected static ?string $breadcrumb = 'Benutzer';
+
+    protected static ?string $label = 'Benutzer';
+    protected static ?string $pluralLabel = 'Benutzer';
+
+    protected static ?string $navigationGroup = "Spiel";
+    protected static ?string $navigationLabel = 'Benutzer';
     protected static ?string $navigationIcon = 'fas-people-group';
 
     public static function getGlobalSearchResultTitle(Model $record): string|Htmlable
