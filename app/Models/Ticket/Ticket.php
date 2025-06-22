@@ -2,10 +2,16 @@
 
 namespace App\Models\Ticket;
 
+use App\Models\Game\GameUser;
+use App\Models\Game\Utils\SocialConnection;
+use App\Models\Team\TeamMember;
 use Illuminate\Database\Eloquent\Model;
+use Staudenmeir\EloquentHasManyDeep\HasRelationships;
 
 class Ticket extends Model
 {
+    use HasRelationships;
+
     protected $fillable = [
         'ticket_id',
         'ticket_author_id',
@@ -44,6 +50,32 @@ class Ticket extends Model
             'unban' => 'Unban Request',
             default => 'Unknown Type',
         };
+    }
+
+    public function author()
+    {
+        return $this->hasOneDeep(
+            GameUser::class,
+            [SocialConnection::class],
+            [
+                "discord_id",
+                "id"
+            ],
+            [
+                "ticket_author_id",
+                "game_user_id"
+            ]
+        );
+    }
+
+    protected $with = [
+        'author',
+        'messages',
+    ];
+
+    public function closedBy()
+    {
+        return $this->belongsTo(TeamMember::class, 'closed_by_id', 'discord_id');
     }
 
     public function messages()

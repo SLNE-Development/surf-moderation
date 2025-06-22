@@ -66,6 +66,6 @@ class SocialConnection extends Model
 
     public function gameUser()
     {
-        return $this->belongsTo(GameUser::class, "minecraft_uuid", "uuid");
+        return $this->belongsTo(GameUser::class, 'game_user_id', 'id');
     }
 }

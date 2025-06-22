@@ -83,6 +83,6 @@ class GameUser extends Model
 
     public function socialConnection()
     {
-        return $this->hasOne(SocialConnection::class, 'minecraft_uuid', 'uuid');
+        return $this->hasOne(SocialConnection::class, 'game_user_id', 'id');
     }
 }

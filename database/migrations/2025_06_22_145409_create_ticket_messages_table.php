@@ -21,7 +21,7 @@ return new class extends Migration {
             $table->string("author_avatar_url")->nullable();
             $table->longText("json_content")->nullable();
             $table->char("references_message_id", 20)->nullable();
-            $table->char("message_id", 20)->unique();
+            $table->char("message_id", 20);
             $table->boolean("bot_message")->default(false);
             $table->timestamp("message_created_at")->nullable();
             $table->timestamp("message_edited_at")->nullable();
