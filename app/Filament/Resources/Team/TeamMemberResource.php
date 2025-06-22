@@ -11,7 +11,9 @@ use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
+use Illuminate\Contracts\Support\Htmlable;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 
 class TeamMemberResource extends Resource
 {
@@ -25,6 +27,22 @@ class TeamMemberResource extends Resource
 
     protected static ?string $label = "Teammitglied";
     protected static ?string $pluralLabel = "Teammitglieder";
+
+
+    public static function getGlobalSearchResultTitle(Model $record): string|Htmlable
+    {
+        return $record->username;
+    }
+
+    public static function getGloballySearchableAttributes(): array
+    {
+        return ['username', 'minecraft_uuid', "discord_id", "team_email"];
+    }
+
+    public static function getGlobalSearchResultUrl(Model $record): string
+    {
+        return static::getUrl('view', ['record' => $record]);
+    }
 
     public static function form(Form $form): Form
     {
@@ -42,6 +60,11 @@ class TeamMemberResource extends Resource
                         ->unique(ignoreRecord: true)
                         ->minLength(12)
                         ->maxLength(19),
+                    Forms\Components\TextInput::make("twitch_id")
+                        ->label("Twitch Id")
+                        ->required()
+                        ->unique(ignoreRecord: true)
+                        ->maxLength(64),
 
                     Forms\Components\TextInput::make("username")
                         ->label("Benutzername")
