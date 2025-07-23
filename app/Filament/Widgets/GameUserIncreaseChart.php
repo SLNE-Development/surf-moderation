@@ -9,7 +9,7 @@ use Flowframe\Trend\TrendValue;
 
 class GameUserIncreaseChart extends ChartWidget
 {
-    protected static ?string $heading = 'Benutzerzuwachs2';
+    protected static ?string $heading = 'Benutzerzuwachs23';
 
     protected function getData(): array
     {
