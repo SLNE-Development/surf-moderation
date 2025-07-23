@@ -9,7 +9,7 @@ use Flowframe\Trend\TrendValue;
 
 class GameUserIncreaseChart extends ChartWidget
 {
-    protected static ?string $heading = 'Benutzerzuwachs';
+    protected static ?string $heading = 'Benutzerzuwachs2';
 
     protected function getData(): array
     {
@@ -30,10 +30,10 @@ class GameUserIncreaseChart extends ChartWidget
             "datasets" => [
                 [
                     "label" => "Benutzerzuwachs",
-                    "data" => $data->map(fn (TrendValue $value) => $value->aggregate),
+                    "data" => $data->map(fn(TrendValue $value) => $value->aggregate),
                 ]
             ],
-            'labels' => $data->map(fn (TrendValue $value) => $value->date),
+            'labels' => $data->map(fn(TrendValue $value) => $value->date),
         ];
     }
 
