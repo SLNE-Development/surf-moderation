@@ -32,7 +32,12 @@ class BanRelationManager extends RelationManager
                 Forms\Components\TextInput::make("reason")
                     ->label("Grund")
                     ->minLength(3)
-                    ->required()
+                    ->columnSpanFull()
+                    ->required(),
+                Forms\Components\Checkbox::make("permanent")
+                    ->label("Permanent")
+                    ->columnSpanFull()
+                    ->helperText("Ein permanenter Ban wird nicht automatisch entfernt, auch wenn der Ablaufzeitpunkt erreicht ist.")
             ]);
     }
 
