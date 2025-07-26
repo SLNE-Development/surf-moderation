@@ -17,11 +17,17 @@ class GameUserIncreaseChart extends ChartWidget
             ->orderBy('created_at', 'asc')
             ->first();
 
+        $startDate = $firstUser && $firstUser->created_at->lessThan(now())
+            ? $firstUser->created_at
+            : now()->subMonths(6);
+
+        $now = now();
+
         // users per month per month
         $data = Trend::model(GameUser::class)
             ->between(
-                start: $firstUser ? $firstUser->created_at : now()->subMonths(6),
-                end: now()
+                start: $startDate,
+                end: $now
             )
             ->perMonth()
             ->count();
