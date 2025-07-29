@@ -16,54 +16,56 @@ class ViewGameUser extends ViewRecord
 
     protected function getHeaderActions(): array
     {
-        $actions = [
-            Actions\Action::make("Socials")
-                ->icon('fas-hashtag')
-                ->color("info")
-                ->label("Socials")
-                ->modalHeading("Socials")
-                ->modalSubmitActionLabel("Speichern")
-                ->form([
-                    TextInput::make('discord_id')
-                        ->label('Discord ID')
-                        ->required()
-                        ->default(fn() => $this->getRecord()->socialConnection?->discord_id ?? '')
-                        ->placeholder('123456789012345678'),
+        $actions = [];
 
-                    TextInput::make('twitch_id')
-                        ->label('Twitch ID')
-                        ->required()
-                        ->default(fn() => $this->getRecord()->socialConnection?->twitch_id ?? '')
-                        ->placeholder('ammo_dev'),
-                ])->action(function (array $data) {
-                    $twitchId = is_numeric($data['twitch_id']) ? $data['twitch_id'] : $this->fetchTwitchId($data['twitch_id']);
+        $actions[] = Actions\Action::make("Socials")
+            ->icon('fas-hashtag')
+            ->color("info")
+            ->label("Socials")
+            ->modalHeading("Socials")
+            ->modalSubmitActionLabel("Speichern")
+            ->form([
+                TextInput::make('discord_id')
+                    ->label('Discord ID')
+                    ->required()
+                    ->default(fn() => $this->getRecord()->socialConnection?->discord_id ?? '')
+                    ->placeholder('123456789012345678'),
 
-                    if (!$twitchId) {
-                        Notification::make()
-                            ->title("Twitch Id konnte nicht abgerufen werden")
-                            ->danger()
-                            ->send();
+                TextInput::make('twitch_id')
+                    ->label('Twitch ID')
+                    ->required()
+                    ->default(fn() => $this->getRecord()->socialConnection?->twitch_id ?? '')
+                    ->placeholder('ammo_dev'),
+            ])->action(function (array $data) {
+                $twitchId = is_numeric($data['twitch_id']) ? $data['twitch_id'] : $this->fetchTwitchId($data['twitch_id']);
 
-                        return;
-                    }
-
-                    $this->getRecord()->socialConnection()->updateOrCreate(
-                        ['minecraft_uuid' => $this->getRecord()->uuid],
-                        [
-                            'discord_id' => $data['discord_id'],
-                            'twitch_id' => $twitchId,
-                        ]
-                    );
-
+                if (!$twitchId) {
                     Notification::make()
-                        ->title("Socials aktualisiert")
-                        ->success()
+                        ->title("Twitch Id konnte nicht abgerufen werden")
+                        ->danger()
                         ->send();
 
-                    return redirect()->to($this->getResource()::getUrl('view', ['record' => $this->getRecord()]));
-                }),
-            Actions\EditAction::make(),
-        ];
+                    return;
+                }
+
+                $this->getRecord()->socialConnection()->updateOrCreate(
+                    ['minecraft_uuid' => $this->getRecord()->uuid],
+                    [
+                        'discord_id' => $data['discord_id'],
+                        'twitch_id' => $twitchId,
+                    ]
+                );
+
+                Notification::make()
+                    ->title("Socials aktualisiert")
+                    ->success()
+                    ->send();
+
+                return redirect()->to($this->getResource()::getUrl('view', ['record' => $this->getRecord()]));
+            });
+
+        $actions[] = Actions\EditAction::make();
+        $actions[] = GameUserResource\Pages\Actions\PunishGameUserAction::buildAction();
 
         $socialConnection = $this->getRecord()->socialConnection;
 
