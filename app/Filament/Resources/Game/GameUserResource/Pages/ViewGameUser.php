@@ -20,7 +20,7 @@ class ViewGameUser extends ViewRecord
             Actions\Action::make("Socials")
                 ->icon('fas-hashtag')
                 ->color("info")
-                ->label("Socials")
+                ->label("Socials2")
                 ->modalHeading("Socials")
                 ->modalSubmitActionLabel("Speichern")
                 ->form([
