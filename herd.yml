@@ -1,0 +1,5 @@
+integrations:
+  forge:
+    moderation.slne.dev:
+      site-id: 2792954
+      server-id: 942046
