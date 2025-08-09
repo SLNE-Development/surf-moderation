@@ -21,7 +21,7 @@ class ViewGameUser extends ViewRecord
         $actions[] = Actions\Action::make("Socials")
             ->icon('fas-hashtag')
             ->color("info")
-            ->label("Socials2")
+            ->label("Socials")
             ->modalHeading("Socials")
             ->modalSubmitActionLabel("Speichern")
             ->form([
